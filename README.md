@@ -2,7 +2,7 @@
 2) others will fork
 3) everybody need contribuite
 
-Activity 1: Product Page with Cards
+Agit add .ctivity 1: Product Page with Cards
 Objective: Create a page displaying a list of products in card format.
 Description:
 Create a products.html file that displays a title "Our Products" and a grid of product cards.
