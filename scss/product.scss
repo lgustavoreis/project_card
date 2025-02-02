@@ -1,0 +1,36 @@
+$product-card-bg: #fff;
+$product-card-border: #ddd;
+$product-card-shadow: rgba(0, 0, 0, 0.1);
+
+body {
+	font-family: Arial, sans-serif;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+}
+
+.product-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 20px;
+	padding: 20px;
+}
+
+.product-card {
+	background: $product-card-bg;
+	border: 1px solid $product-card-border;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px $product-card-shadow;
+	transition: transform 0.3s ease-in-out;
+
+	&:hover {
+		transform: scale(1.05);
+	}
+
+	img {
+		width: 100%;
+		height: auto;
+		border-radius: 5px;
+	}
+}
