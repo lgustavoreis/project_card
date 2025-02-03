@@ -2,6 +2,7 @@ const path = require("path");
 
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
 	entry: {
@@ -24,18 +25,18 @@ module.exports = {
 				exclude: /node_modules/,
 				use: "babel-loader",
 			},
-			{
-				test: /\.(png|jpe?g|gif|svg)$/i,
-				use: [
-					{
-						loader: "file-loader",
-						options: {
-							name: "[name].[hash].[ext]", // You can modify the output format of your image files
-							outputPath: "images", // This places the images inside a 'images' folder in dist
-						},
-					},
-				],
-			},
+			// {
+			//  	test: /\.(png|jpe?g|gif|svg)$/i,
+			// 	use: [
+			//  		{
+			//  			loader: "file-loader",
+			// 			options: {
+			// 				name: "[name].[hash].[ext]", // You can modify the output format of your image files
+			// 				outputPath: "images", // This places the images inside a 'images' folder in dist
+			// 			},
+			//  		},
+			//  	],
+			//  },
 		],
 	},
 
@@ -48,6 +49,14 @@ module.exports = {
 			template: "./product.html",
 			chunks: ["product"],
 			filename: "product.html",
+		}),
+
+		new CopyWebpackPlugin({
+			patterns:[
+				// {from:"./*.png",to:path.resolve(__dirname,"dist")},
+				// {from:"./*.jpg",to:path.resolve(__dirname,"dist")},
+				{from:"./*.jpeg",to:path.resolve(__dirname,"dist")},
+			],
 		}),
 	],
 
