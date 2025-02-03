@@ -12,6 +12,7 @@ module.exports = {
 	output: {
 		path: path.resolve(__dirname, "dist"),
 		filename: "[name].js",
+		publicPath: "/", // This ensures assets are loaded correctly
 	},
 
 	module: {
@@ -31,7 +32,7 @@ module.exports = {
 					{
 						loader: "file-loader",
 						options: {
-							name: "[name].[hash].[ext]", // You can modify the output format of your image files
+							name: "[name].[hash].[ext]", // Image file name format
 							outputPath: "images", // This places the images inside a 'images' folder in dist
 						},
 					},
@@ -49,12 +50,14 @@ module.exports = {
 			template: "./product.html",
 			chunks: ["product"],
 			filename: "product.html",
+			inject: "head",
 		}),
+
 		new CopyWebpackPlugin({
 			patterns: [
 				{
-					from: path.resolve(__dirname, "images"), // Include the entire images folder
-					to: path.resolve(__dirname, "dist/images"), // Ensure they go to the dist/images folder
+					from: path.resolve(__dirname, "images"),
+					to: path.resolve(__dirname, "dist/images"),
 				},
 			],
 		}),
