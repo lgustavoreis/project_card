@@ -26,17 +26,17 @@ module.exports = {
 				use: "babel-loader",
 			},
 			{
-				test: /\.(png|jpe?g|gif|svg)$/i,
+			 	test: /\.(png|jpe?g|gif|svg)$/i,
 				use: [
-					{
-						loader: "file-loader",
+			 		{
+			 			loader: "file-loader",
 						options: {
 							name: "[name].[hash].[ext]", // You can modify the output format of your image files
 							outputPath: "images", // This places the images inside a 'images' folder in dist
 						},
-					},
-				],
-			},
+			 		},
+			 	],
+			 },
 		],
 	},
 
@@ -50,6 +50,7 @@ module.exports = {
 			chunks: ["product"],
 			filename: "product.html",
 		}),
+
 		new CopyWebpackPlugin({
 			patterns: [
 				{
