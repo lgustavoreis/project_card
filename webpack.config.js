@@ -2,6 +2,7 @@ const path = require("path");
 
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
 	entry: {
@@ -49,10 +50,19 @@ module.exports = {
 			chunks: ["product"],
 			filename: "product.html",
 		}),
+		new CopyWebpackPlugin({
+			patterns: [
+				{
+					from: path.resolve(__dirname, "images"), // Include the entire images folder
+					to: path.resolve(__dirname, "dist/images"), // Ensure they go to the dist/images folder
+				},
+			],
+		}),
 	],
 
 	devServer: {
 		static: "./dist",
 		port: 9000,
+		open: true,
 	},
 };
