@@ -13,3 +13,5 @@ Directories:
 HTML: products.html
 SCSS: products.scss
 JS: products.js
+
+Author: Harsh, Gustavo, Pedro.
