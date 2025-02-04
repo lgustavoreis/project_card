@@ -6,12 +6,14 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
 	entry: {
+		main: "./js/main.js",
 		product: "./js/product.js",
 	},
 
 	output: {
 		path: path.resolve(__dirname, "dist"),
 		filename: "[name].js",
+		publicPath: "/", // This ensures assets are loaded correctly
 	},
 
 	module: {
@@ -25,18 +27,18 @@ module.exports = {
 				exclude: /node_modules/,
 				use: "babel-loader",
 			},
-			// {
-			//  	test: /\.(png|jpe?g|gif|svg)$/i,
-			// 	use: [
-			//  		{
-			//  			loader: "file-loader",
-			// 			options: {
-			// 				name: "[name].[hash].[ext]", // You can modify the output format of your image files
-			// 				outputPath: "images", // This places the images inside a 'images' folder in dist
-			// 			},
-			//  		},
-			//  	],
-			//  },
+			{
+				test: /\.(png|jpe?g|gif|svg)$/i,
+				use: [
+					{
+						loader: "file-loader",
+						options: {
+							name: "[name].[hash].[ext]", // Image file name format
+							outputPath: "images", // This places the images inside a 'images' folder in dist
+						},
+					},
+				],
+			},
 		],
 	},
 
@@ -44,18 +46,24 @@ module.exports = {
 		new MiniCssExtractPlugin({
 			filename: "[name].css",
 		}),
-
+		new HtmlWebpackPlugin({
+			template: "./index.html",
+			chunks: ["main"],
+			filename: "index.html",
+		}),
 		new HtmlWebpackPlugin({
 			template: "./product.html",
 			chunks: ["product"],
 			filename: "product.html",
+			inject: "head",
 		}),
 
 		new CopyWebpackPlugin({
-			patterns:[
-				// {from:"./*.png",to:path.resolve(__dirname,"dist")},
-				// {from:"./*.jpg",to:path.resolve(__dirname,"dist")},
-				{from:"./*.jpeg",to:path.resolve(__dirname,"dist")},
+			patterns: [
+				{
+					from: path.resolve(__dirname, "images"),
+					to: path.resolve(__dirname, "dist/images"),
+				},
 			],
 		}),
 	],
@@ -63,5 +71,6 @@ module.exports = {
 	devServer: {
 		static: "./dist",
 		port: 9000,
+		open: true,
 	},
 };
